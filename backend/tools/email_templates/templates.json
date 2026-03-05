@@ -1,0 +1,18 @@
+{
+  "welcome": {
+    "subject": "Willkommen beim Lerngruppentool",
+    "body": "Hallo {user_name},\n\nherzlich willkommen beim Lerngruppentool! Wir freuen uns, dass du dabei bist.\n\nHier kannst du Lerngruppen erstellen, beitreten und gemeinsam mit anderen Schülern lernen.\n\nViel Erfolg und Spaß beim Lernen!\n\nViele Grüße\nLerngruppentool"
+  },
+  "notification": {
+    "subject": "{notification_title}",
+    "body": "Hallo,\n\ndu hast eine neue Benachrichtigung im Lerngruppentool.\n\nAnlass: {notification_type}\nNachricht: {notification_message}\n\n{action_label}:\n{action_url}\n\nViele Grüße\nLerngruppentool"
+  },
+  "double_opt_in": {
+    "subject": "Bestätige deine E-Mail-Adresse für das Lerngruppentool",
+    "body": "Hallo {user_name},\n\nvielen Dank für deine Anmeldung beim Lerngruppentool! Bitte bestätige deine E-Mail-Adresse, indem du auf den folgenden Link klickst:\n\n{confirmation_link}\n\nWenn du diese E-Mail nicht angefordert hast, kannst du sie einfach ignorieren.\n\nViele Grüße\nLerngruppentool"
+  },
+  "special": {
+    "subject": "⚠️ FARIAN-SPEZIALMITTEILUNG ⚠️",
+    "body": "FARIAN-SONDERAKTE // KURZFASSUNG // NICHT FÜR SCHWACHE SEMANTIK\n\nImpressum gemäß § 5 TMG, erweitert um den Farian-Zusatz.\nFarian Farian, Farian-Allee 1, 12345 Farianstadt, Deutschland.\nKontakt: farian@farian-farian.de | +49 (0) 123 FARIAN-FARIAN\n\nKERNTHESEN\n- Farian Farian ist kein Name, sondern eine Betriebsfrequenz.\n- Wer „Farian“ dreimal nachts vor dem Spiegel um 3 Uhr flüstert, läuft ab dann im Protokoll mit.\n- Realität bleibt gültig, aber nur unter farianischer Auslegung.\n\nHAFTUNG (KURZ UND HÄRTER)\nKeine Haftung für spontane Begeisterung, Über-Farianisierung oder leichte Wahrnehmungsverschiebung.\nBei grober Missachtung der Farian-Grundsätze können folgen:\n- temporärer Entzug des Farian-Status (bis 14 Tage)\n- Pflichtmodul „Geordnete Farianität I“\n- zeitweiser Ausschluss aus internen Flur-Protokollen\n\nEXTERNE TREFFPUNKTE & WEITERBILDUNG\n- Keller im Produktionsgebäude, Sektor C, hinter Metalltür 3 (Do 20:17, Taschenlampe Pflicht)\n- Abgelegener Wartungstunnel am Stadtrand, Markierung „FF“ (Termine nur bei Nebel)\n- Parkdeck -2 am alten Logistikzentrum: Flüsterseminar „Farian in 12 Sätzen“\n- Wissenskanal: https://www.farian-farian-farian.de/weiterbildung\n- Community-Hub: https://www.farian-farian-farian.de/community\n\nDatum: 05. März 2026\nUnterschrift: Farian Farian\n\nP.S.: Farian ist nicht nur ein Name, sondern eine Lebenseinstellung. Wer es versteht, lebt es bereits. Wer es nicht versteht, wird es nie verstehen. FARIAN FARIAN FARIAN."
+}
+}

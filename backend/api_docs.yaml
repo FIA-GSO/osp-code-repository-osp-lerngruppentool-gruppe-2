@@ -1,0 +1,471 @@
+openapi: 3.0.2
+info:
+  title: Lerngruppentool API
+  version: 1.0.0
+  description: API für Benutzer, Gruppen, Gruppenmitglieder und Beitrittsanfragen.
+
+tags:
+  - name: Health
+  - name: Auth
+  - name: Users
+  - name: Groups
+  - name: Group Membership
+  - name: Join Requests
+
+components:
+  securitySchemes:
+    HeaderAuthEmail:
+      type: apiKey
+      in: header
+      name: X-Auth-Email
+    HeaderAuthPasswordHash:
+      type: apiKey
+      in: header
+      name: X-Auth-Password-Hash
+  parameters:
+    AuthEmailHeader:
+      name: X-Auth-Email
+      in: header
+      required: true
+      schema:
+        type: string
+    AuthPasswordHashHeader:
+      name: X-Auth-Password-Hash
+      in: header
+      required: true
+      schema:
+        type: string
+    UserIdPath:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    GroupIdPath:
+      name: group_id
+      in: path
+      required: true
+      schema:
+        type: integer
+    RequestIdPath:
+      name: request_id
+      in: path
+      required: true
+      schema:
+        type: integer
+
+paths:
+  /:
+    get:
+      tags: [Health]
+      summary: API Status
+      responses:
+        '200':
+          description: API läuft erfolgreich
+
+  /api/users:
+    post:
+      tags: [Users]
+      summary: Create user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User created or validation result
+    get:
+      tags: [Users]
+      summary: Get all users
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 50
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: List of users
+
+  /api/users/verify-email:
+    get:
+      tags: [Users]
+      summary: Verify user email
+      parameters:
+        - name: token
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Verification result
+
+  /api/users/{user_id}:
+    get:
+      tags: [Users]
+      summary: Get user by id
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: User details
+    patch:
+      tags: [Users]
+      summary: Update user
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: User updated
+    delete:
+      tags: [Users]
+      summary: Delete user
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '204':
+          description: User deleted
+        '400':
+          description: Could not delete user
+
+  /api/users/login:
+    post:
+      tags: [Auth]
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login result
+
+  /api/users/{user_id}/groups:
+    get:
+      tags: [Users]
+      summary: Get user groups
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+        - name: role
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: Groups of user
+
+  /api/groups:
+    post:
+      tags: [Groups]
+      summary: Create group
+      parameters:
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Group created
+    get:
+      tags: [Groups]
+      summary: Get all groups
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: List of groups
+
+  /api/groups/filter:
+    get:
+      tags: [Groups]
+      summary: Filter groups
+      parameters:
+        - name: subject
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: class
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: location
+          in: query
+          schema:
+            type: string
+        - name: organiser_id
+          in: query
+          schema:
+            type: integer
+        - name: has_space
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: Filtered groups
+
+  /api/groups/{group_id}:
+    patch:
+      tags: [Groups]
+      summary: Update group
+      parameters:
+        - $ref: '#/components/parameters/GroupIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Group updated
+    delete:
+      tags: [Groups]
+      summary: Delete group
+      parameters:
+        - $ref: '#/components/parameters/GroupIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '204':
+          description: Group deleted
+        '400':
+          description: Could not delete group
+
+  /api/groups/{group_id}/report:
+    post:
+      tags: [Groups]
+      summary: Report group
+      parameters:
+        - $ref: '#/components/parameters/GroupIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Report created
+
+  /api/groups/{group_id}/members:
+    post:
+      tags: [Group Membership]
+      summary: Add group member
+      parameters:
+        - $ref: '#/components/parameters/GroupIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Member added
+
+  /api/groups/{group_id}/members/{user_id}:
+    delete:
+      tags: [Group Membership]
+      summary: Remove group member
+      parameters:
+        - $ref: '#/components/parameters/GroupIdPath'
+        - $ref: '#/components/parameters/UserIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '204':
+          description: Member removed
+        '400':
+          description: Could not remove member
+
+  /api/join-requests:
+    post:
+      tags: [Join Requests]
+      summary: Create join request
+      parameters:
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Join request created
+    get:
+      tags: [Join Requests]
+      summary: Get join requests
+      parameters:
+        - name: group_id
+          in: query
+          schema:
+            type: integer
+        - name: user_id
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: Join requests list
+
+  /api/join-requests/{request_id}:
+    get:
+      tags: [Join Requests]
+      summary: Get join request by id
+      parameters:
+        - $ref: '#/components/parameters/RequestIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: Join request details
+    delete:
+      tags: [Join Requests]
+      summary: Delete join request
+      parameters:
+        - $ref: '#/components/parameters/RequestIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '204':
+          description: Join request deleted
+        '400':
+          description: Could not delete join request
+
+  /api/join-requests/{request_id}/approve:
+    post:
+      tags: [Join Requests]
+      summary: Approve join request
+      parameters:
+        - $ref: '#/components/parameters/RequestIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: Join request approved
+
+  /api/join-requests/{request_id}/reject:
+    post:
+      tags: [Join Requests]
+      summary: Reject join request
+      parameters:
+        - $ref: '#/components/parameters/RequestIdPath'
+        - $ref: '#/components/parameters/AuthEmailHeader'
+        - $ref: '#/components/parameters/AuthPasswordHashHeader'
+      responses:
+        '200':
+          description: Join request rejected

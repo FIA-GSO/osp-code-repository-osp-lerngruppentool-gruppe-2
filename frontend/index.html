@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lerngruppentool - Übersicht</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
+</head>
+<body class="main-page">
+
+    <!-- Navbar -->
+    <header class="header">
+        <div class="header-left">
+            <img src="images/cropped-LOGO-GSO_neu.png" alt="GSO Logo" class="logo">
+        </div>
+        <div class="header-center">
+            <h1 class="header-title">LERNGRUPPENTOOL</h1>
+        </div>
+        <div class="header-right">
+            <span class="username" id="userNameLabel">Benutzer</span>
+            <div class="user-avatar" id="userAvatar">
+                <img src="images/8157dcca-b049-4ac8-aa38-d97f269900bb.png" alt="Profil" id="profileImage">
+                <div class="avatar-dropdown" id="avatarDropdown">
+                    <div class="avatar-dropdown-header">
+                        <span id="avatarDropdownName">Benutzer</span>
+                        <span id="avatarDropdownEmail"></span>
+                    </div>
+                    <hr class="avatar-dropdown-divider">
+                    <button class="avatar-dropdown-item" id="logoutBtn">
+                        <i class="pi pi-sign-out"></i>
+                        <span>Abmelden</span>
+                    </button>
+                    <button class="avatar-dropdown-item danger" id="deleteAccountBtn">
+                        <i class="pi pi-trash"></i>
+                        <span>Konto löschen</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+        <div class="action-left">
+            <div class="filter-wrapper">
+                <button class="filter-btn" id="filterBtn">
+                    <i class="pi pi-filter"></i>
+                    <span class="filter-btn-text">Filter</span>
+                </button>
+                <span class="filter-count-badge" id="filterCountBadge" style="display:none;">0</span>
+                <div class="filter-chips" id="filterChips"></div>
+            </div>
+        </div>
+        <div class="action-right">
+            <span class="group-count" id="groupCount"></span>
+            <button class="add-btn" id="addGroupBtn" title="Neue Gruppe erstellen">
+                <i class="pi pi-plus"></i>
+            </button>
+            <div class="search-wrapper">
+                <i class="pi pi-search"></i>
+                <input type="text" class="search-input" id="searchInput"
+                       placeholder="Gruppen suchen..." autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <!-- Hauptbereich -->
+    <main class="main-content">
+
+        <!-- Karten Grid -->
+        <div class="card-grid" id="cardGrid">
+            <!-- Wird durch JS befüllt -->
+            <div style="
+                color: white; text-align: center; width: 100%; margin-top: 60px;
+                display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                <i class="pi pi-spin pi-spinner" style="font-size: 2rem; opacity: 0.6;"></i>
+                <p style="margin:0; font-size: 1.1rem; opacity: 0.8;">Lädt Gruppen...</p>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper" id="paginationWrapper" style="display:none;">
+            <span class="pagination-info" id="paginationInfo"></span>
+            <div class="pagination-controls">
+                <button class="page-btn" id="firstPageBtn" title="Erste Seite" disabled>
+                    <i class="pi pi-angle-double-left"></i>
+                </button>
+                <button class="page-btn" id="prevPageBtn" title="Vorherige Seite" disabled>
+                    <i class="pi pi-angle-left"></i>
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="page-btn" id="nextPageBtn" title="Nächste Seite">
+                    <i class="pi pi-angle-right"></i>
+                </button>
+                <button class="page-btn" id="lastPageBtn" title="Letzte Seite">
+                    <i class="pi pi-angle-double-right"></i>
+                </button>
+            </div>
+            <div class="pagination-size">
+                <label for="pageSizeSelect">Pro Seite:</label>
+                <select id="pageSizeSelect">
+                    <option value="8" selected>8</option>
+                    <option value="16">16</option>
+                    <option value="24">24</option>
+                </select>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Filter Dropdown -->
+    <div id="filterDropdown" class="filter-dropdown">
+        <div class="filter-section">
+            <h3>Fach</h3>
+            <div class="filter-options">
+                <label class="filter-label">
+                    <input type="checkbox" value="EvP" class="subject-filter">
+                    <span>EvP</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="SuD" class="subject-filter">
+                    <span>SuD</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="GiD" class="subject-filter">
+                    <span>GiD</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="WuB" class="subject-filter">
+                    <span>WuB</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="POL" class="subject-filter">
+                    <span>POL</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="FEN" class="subject-filter">
+                    <span>FEN</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="DEU" class="subject-filter">
+                    <span>DEU</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="ITG" class="subject-filter">
+                    <span>ITG</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Lernfeld</h3>
+            <div class="filter-options">
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 1" class="learning-field-filter">
+                    <span>LF 1</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 2" class="learning-field-filter">
+                    <span>LF 2</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 3" class="learning-field-filter">
+                    <span>LF 3</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 4" class="learning-field-filter">
+                    <span>LF 4</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 5" class="learning-field-filter">
+                    <span>LF 5</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 6" class="learning-field-filter">
+                    <span>LF 6</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 7" class="learning-field-filter">
+                    <span>LF 7</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 8" class="learning-field-filter">
+                    <span>LF 8</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 9" class="learning-field-filter">
+                    <span>LF 9</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 10" class="learning-field-filter">
+                    <span>LF 10</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 11" class="learning-field-filter">
+                    <span>LF 11</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 12" class="learning-field-filter">
+                    <span>LF 12</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" value="LF 13" class="learning-field-filter">
+                    <span>LF 13</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn-reset" id="resetFilter">
+                <i class="pi pi-refresh"></i> Zurücksetzen
+            </button>
+            <button class="filter-btn-apply" id="applyFilter">
+                <i class="pi pi-check"></i> Anwenden
+            </button>
+        </div>
+    </div>
+
+    <!-- Gruppe erstellen Modal -->
+    <div id="groupModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2><i class="pi pi-plus-circle"></i> Neue Lerngruppe erstellen</h2>
+            <form id="groupForm">
+
+                <div class="form-group">
+                    <label for="groupName">Gruppenname *</label>
+                    <input type="text" id="groupName" required
+                           placeholder="z.B. Prüfungsvorbereitung Mathe"
+                           autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Fach *</label>
+                    <select id="subject" required>
+                        <option value="" disabled selected>Fach auswählen...</option>
+                        <option value="EvP">EvP</option>
+                        <option value="SuD">SuD</option>
+                        <option value="GiD">GiD</option>
+                        <option value="WuB">WuB</option>
+                        <option value="POL">POL</option>
+                        <option value="FEN">FEN</option>
+                        <option value="DEU">DEU</option>
+                        <option value="ITG">ITG</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="learningField">Lernfeld *</label>
+                    <select id="learningField" required>
+                        <option value="" disabled selected>Lernfeld auswählen...</option>
+                        <option value="LF 1">LF 1</option>
+                        <option value="LF 2">LF 2</option>
+                        <option value="LF 3">LF 3</option>
+                        <option value="LF 4">LF 4</option>
+                        <option value="LF 5">LF 5</option>
+                        <option value="LF 6">LF 6</option>
+                        <option value="LF 7">LF 7</option>
+                        <option value="LF 8">LF 8</option>
+                        <option value="LF 9">LF 9</option>
+                        <option value="LF 10">LF 10</option>
+                        <option value="LF 11">LF 11</option>
+                        <option value="LF 12">LF 12</option>
+                        <option value="LF 13">LF 13</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="groupType">Typ *</label>
+                    <select id="groupType" required>
+                        <option value="online">Online</option>
+                        <option value="in-person">Vor Ort</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="groupLocation">Ort / Link</label>
+                    <input type="text" id="groupLocation"
+                           placeholder="z.B. Teams-Link, Raum A12, Bibliothek"
+                           autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="groupClass">Klasse</label>
+                    <input type="text" id="groupClass"
+                           placeholder="z.B. FIA3A, FI302"
+                           autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="groupMaxUsers">Max. Mitglieder</label>
+                    <input type="number" id="groupMaxUsers"
+                           placeholder="Leer lassen = unbegrenzt"
+                           min="2" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="groupDetails">Beschreibung</label>
+                    <textarea id="groupDetails" rows="4"
+                              placeholder="Beschreibe die Gruppe und ihre Ziele..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="pi pi-plus"></i> Gruppe erstellen
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Lerngruppentool. Alle Rechte vorbehalten.</p>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <span class="footer-separator">|</span>
+                <a href="datenschutz.html">Datenschutzerklärung</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

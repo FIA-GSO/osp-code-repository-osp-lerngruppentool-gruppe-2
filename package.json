@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "flask": "^0.2.10",
+    "sqlalchemy": "^10.1.1"
+  }
+}

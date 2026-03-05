@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Lerngruppentool</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <h1>Login</h1>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="beispiel@schule.de" 
+                    required
+                    autocomplete="email"
+                >
+            </div>
+            <div class="form-group">
+                <label for="password">Passwort</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Passwort eingeben" 
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <!-- Nachricht Box (Erfolg / Fehler) -->
+            <div 
+                id="message" 
+                style="display:none; margin: 10px 0; padding: 10px; border-radius: 5px;">
+            </div>
+
+            <button type="submit" id="submitBtn">Anmelden</button>
+        </form>
+
+        <div class="form-footer">
+            <p>Noch kein Konto? <a href="register.html">Jetzt registrieren</a></p>
+        </div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

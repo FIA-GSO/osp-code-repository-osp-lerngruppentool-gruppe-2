@@ -1,0 +1,12 @@
+# Ignoriert alle Dateien mit der Endung .db
+*.db
+
+# Ignoriert den Ordner ".vscode" und alles darin
+.vscode/
+__pycache__/
+logs/
+
+# Ignoriert den Ordner mit Abhängigkeiten
+venv/
+
+.env

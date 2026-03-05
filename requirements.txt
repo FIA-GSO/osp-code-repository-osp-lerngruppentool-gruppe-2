@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+Flask-SQLAlchemy
+python-dotenv
+requests
+loguru
+flasgger

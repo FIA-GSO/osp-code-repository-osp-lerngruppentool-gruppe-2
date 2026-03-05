@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrieren - Lerngruppentool</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="register-page">
+    <div class="register-container">
+        <h1>Registrieren</h1>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <!-- WICHTIG: id="email" -->
+                <input type="email" id="email" name="email" placeholder="beispiel@schule.de" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Passwort</label>
+                <!-- WICHTIG: id="password" -->
+                <input type="password" id="password" name="password" placeholder="Mindestens 6 Zeichen" required minlength="6">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Passwort bestätigen</label>
+                <!-- WICHTIG: id="confirmPassword" -->
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Passwort wiederholen" required minlength="6">
+            </div>
+
+            <!-- Nachricht-Box VOR dem Button, damit man sie besser sieht -->
+            <div id="message" style="display:none; margin-bottom: 15px; padding: 10px; border-radius: 4px;"></div>
+
+            <button type="submit">Konto erstellen</button>
+        </form>
+        
+        <div class="form-footer">
+            <p>Bereits registriert? <a href="login.html">Zum Login</a></p>
+        </div>
+    </div>
+
+    <script src="js/register.js"></script>
+</body>
+</html>
